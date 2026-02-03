@@ -20,16 +20,41 @@ html {
   margin: 0;
 }
 .top-nav {
-  margin-bottom: 20px; /* This creates the gap so they don't touch */
+  margin-bottom: 20px;
   z-index: 10;
 }
 
 .app-icon-nav {
-
-  border-radius: 18px;
-  /* No absolute positioning needed here anymore! */
+  width: 350px; 
+  height: auto;
+  display: block;
+  margin: 0 auto 20px auto;
+  
+  max-width: 80vw;
+}
+h1 {
+  font-size: clamp(2rem, 12vw, 4.5rem); 
+  
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
+  display: block;
+  letter-spacing: -0.02em; 
+  word-wrap: normal;
+  overflow-wrap: normal;
 }
 
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.panel-inner {
+  padding: 0 20px;
+  box-sizing: border-box;
+}
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Helvetica, Arial, sans-serif;
@@ -42,6 +67,7 @@ body {
 
 .highlight-duel {
   color: var(--accent-teal);
+  display: inline-block;
 }
 
 
@@ -64,19 +90,15 @@ body {
 
 .hero {
   display: flex;
-  flex-direction: column; /* Stacks items vertically */
-  justify-content: center; /* Centers the whole stack vertically */
-  align-items: center;    /* Centers everything horizontally */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   height: 100vh;
   box-sizing: border-box;
-  padding-top: 40px;      /* Gives the logo breathing room from the top edge */
+  padding-top: 40px;
 }
 
-.hero h1 {
-  font-size: 5rem;
-  margin: 0;
-}
 .hero-extra {
   font-size: 1.2rem;
   margin-top: 1rem;
