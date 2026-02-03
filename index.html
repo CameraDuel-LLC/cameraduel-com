@@ -32,7 +32,7 @@
       <p class="hero-extra">
         Share moments, explore perspectives, and stay connected.
       </p>
-          <a href="#mission" class="hero-btn">Learn More</a>
+      <button onclick="scrollToMission()" class="hero-btn">Learn More</button>
     </div>
   </section>
 
@@ -101,7 +101,15 @@
 </footer>
 
   
+<script>
+  function scrollToMission() {
+    const missionSection = document.getElementById('mission');
   
+    missionSection.scrollIntoView({ 
+      behavior: 'smooth' 
+    });
+  }
+</script>
 
 </body>
 </html>
