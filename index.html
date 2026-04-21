@@ -1,114 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>CameraDuel</title>
-
-  <meta
-    name="description"
-    content="CameraDuel is a photo-based app transforming the way we experience connection through creativity and shared presence."
-  />
-
-  <link rel="icon" type="image/png" href="/favicon.png" />
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CameraDuel — Coming Summer 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "DM Sans", sans-serif;
+    background: #EEF9F9;
+    color: #141413;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  nav {
+    display: flex;
+    align-items: center;
+    padding: 18px 32px;
+    background: #EEF9F9;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 9px; text-decoration: none; }
+  .nav-wordmark { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; color: #141413; }
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 48px 24px 64px;
+  }
+  .duck-wrap { margin-bottom: 20px; }
+  .badge {
+    display: inline-flex;
+    background: rgba(46,206,202,0.12);
+    border-radius: 20px;
+    padding: 6px 16px;
+    margin-bottom: 20px;
+  }
+  .badge span { font-size: 12px; font-weight: 700; color: #2ECECA; letter-spacing: 0.8px; text-transform: uppercase; }
+  h1 {
+    font-size: clamp(38px, 7vw, 72px);
+    font-weight: 800;
+    letter-spacing: -2px;
+    line-height: 1.05;
+    color: #141413;
+    margin-bottom: 16px;
+  }
+  h1 em { font-style: normal; color: #2ECECA; }
+  .sub {
+    font-size: clamp(16px, 2vw, 20px);
+    color: #888880;
+    line-height: 1.6;
+    max-width: 420px;
+    margin-bottom: 40px;
+  }
+  .form-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 400px;
+  }
+  .form-wrap input {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1.5px solid #D4F0F0;
+    border-radius: 12px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 15px;
+    background: #fff;
+    color: #141413;
+    outline: none;
+  }
+  .form-wrap input:focus { border-color: #2ECECA; }
+  .form-wrap input::placeholder { color: #b0aea5; }
+  .form-wrap button {
+    width: 100%;
+    padding: 14px 28px;
+    background: #F5A623;
+    color: #141413;
+    border: none;
+    border-radius: 12px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .form-wrap button:hover { background: #e09610; }
+  .form-wrap button:disabled { background: #D0CEC4; cursor: not-allowed; }
+  .form-note { font-size: 12px; color: #b0aea5; margin-top: 10px; }
+  .success {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 20px 24px;
+    background: rgba(46,206,202,0.1);
+    border-radius: 14px;
+    border: 1.5px solid rgba(46,206,202,0.25);
+    max-width: 400px;
+    width: 100%;
+  }
+  .success .emoji { font-size: 28px; }
+  .success p { font-size: 15px; font-weight: 600; color: #141413; }
+  .success small { font-size: 13px; color: #888880; }
+  .error-msg { font-size: 12px; color: #E24B4A; margin-top: 4px; display: none; }
+  footer {
+    padding: 20px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    border-top: 1px solid rgba(46,206,202,0.15);
+  }
+  .footer-logo { display: flex; align-items: center; gap: 8px; }
+  .footer-wordmark { font-size: 13px; font-weight: 800; color: #141413; letter-spacing: -0.3px; }
+  .footer-links { display: flex; gap: 18px; }
+  .footer-links a { font-size: 12px; color: #b0aea5; text-decoration: none; }
+  .footer-copy { font-size: 12px; color: #b0aea5; }
+</style>
 </head>
-
 <body>
 
-  <section id="hero" class="panel hero">
-    <div class="top-nav">
-      <img src="WebsiteLogo.jpg" alt="CameraDuel Logo" class="app-icon-nav">
-    </div>
-    <div class="panel-inner">
-      <h1>
-        Camera<span class="highlight-duel">Duel</span>
-      </h1>
-      
-      <p class="hero-sub">
-        Transforming the way we experience connection in our daily lives.
-      </p>
-      <p class="hero-extra">
-        Share moments, explore perspectives, and stay connected.
-      </p>
-      <button onclick="scrollToMission()" class="hero-btn">Learn More</button>
-    </div>
-  </section>
+<nav>
+  <a class="nav-logo" href="#">
+    <svg style="width:26px;height:26px;flex-shrink:0" viewBox="-75 -75 150 150" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision"><rect x="-55" y="3" width="85" height="17" fill="rgba(255, 217, 60, 1)" stroke="rgba(255, 217, 60, 1)" stroke-width="0"/><rect x="-55" y="0" width="7" height="7" fill="rgba(255, 217, 60, 1)" stroke="rgba(255, 217, 60, 1)" stroke-width="0"/><rect x="-10" y="0" width="11" height="3" fill="rgba(255, 217, 60, 1)" stroke="rgba(255, 217, 60, 1)" stroke-width="0"/><rect x="-35" y="20" width="68" height="30" fill="rgba(255, 217, 60, 1)" stroke="rgba(255, 217, 60, 1)" stroke-width="0"/><rect x="-45" y="20" width="10" height="20" fill="rgba(255, 217, 60, 1)" stroke="rgba(255, 217, 60, 1)" stroke-width="0"/><line x1="-30" y1="50" x2="30" y2="50" stroke="rgba(0, 0, 0, 1)" stroke-width="4"/><path d="M 30 5 Q 55 25 30 50" fill="rgba(255, 217, 60, 1)" stroke="rgba(0, 0, 0, 1)" stroke-width="4"/><path d="M -55 -3 Q -55 45 -30 50" fill="rgba(255, 217, 60, 1)" stroke="rgba(0, 0, 0, 1)" stroke-width="4"/><path d="M -55 -2 Q -35 10 0 -1" fill="rgba(0, 0, 0, 0)" stroke="rgba(0, 0, 0, 1)" stroke-width="4"/><line x1="-54.5" y1="-3.7" x2="-50" y2="-1" stroke="rgba(0, 0, 0, 1)" stroke-width="1"/><circle cx="30" cy="50" r="1.5" fill="rgba(0, 0, 0, 1)" stroke="rgba(0, 0, 0, 1)"/><circle cx="-30" cy="50" r="1.5" fill="rgba(0, 0, 0, 1)" stroke="rgba(0, 0, 0, 1)"/><circle cx="-55.1" cy="-2.3" r="1.5" fill="rgba(0, 0, 0, 1)" stroke="rgba(0, 0, 0, 1)"/><line x1="-56.45" y1="0" x2="-56.56" y2="-2" stroke="rgba(0, 0, 0, 1)" stroke-width="1"/><path d="M 27 48.46 Q 29 49 31.7 46" fill="rgba(255, 217, 60, 1)" stroke="rgba(0, 0, 0, 1)" stroke-width="1"/><circle cx="50" cy="-12" r="4" fill="rgba(255, 179, 70, 1)" stroke="rgba(255, 179, 70, 1)"/><circle cx="20" cy="-20" r="28" fill="rgba(0, 0, 0, 1)" stroke="rgba(0, 0, 0, 1)"/><circle cx="20" cy="-20" r="24" fill="rgba(255, 217, 60, 1)" stroke="rgba(255, 217, 60, 1)"/><rect x="0.7" y="-5" width="29.3" height="15" fill="rgba(255, 217, 60, 1)" stroke="rgba(255, 217, 60, 1)" stroke-width="0"/><circle cx="30.6" cy="5" r="2.2" fill="rgba(0, 0, 0, 1)" stroke="rgba(0, 0, 0, 1)"/><line x1="29" y1="6.5" x2="36" y2="11" stroke="rgba(0, 0, 0, 1)" stroke-width="1"/><path d="M 0.3 0.5 Q 4 -1.5 0.3 -4.6" fill="rgba(0, 0, 0, 1)" stroke="rgba(0, 0, 0, 1)" stroke-width="1"/><circle cx="28" cy="-28" r="2" fill="rgba(0, 0, 0, 1)" stroke="rgba(0, 0, 0, 1)"/><path d="M 30 -14 Q 34 -7 42 -7" fill="rgba(255, 217, 60, 1)" stroke="rgba(0, 0, 0, 1)" stroke-width="4"/><circle cx="30" cy="-14" r="1.5" fill="rgba(0, 0, 0, 1)" stroke="rgba(0, 0, 0, 1)"/><line x1="46" y1="-20" x2="57" y2="-12" stroke="rgba(0, 0, 0, 1)" stroke-width="4"/><line x1="43" y1="-6" x2="57" y2="-11" stroke="rgba(0, 0, 0, 1)" stroke-width="4"/><circle cx="57" cy="-11.5" r="1.9" fill="rgba(0, 0, 0, 1)" stroke="rgba(0, 0, 0, 1)"/><path d="M -20 22 Q -2.5 32 15 22" fill="rgba(255, 217, 60, 1)" stroke="rgba(0, 0, 0, 1)" stroke-width="4"/><circle cx="-20" cy="22" r="1.5" fill="rgba(0, 0, 0, 1)" stroke="rgba(0, 0, 0, 1)"/><circle cx="15" cy="22" r="1.5" fill="rgba(0, 0, 0, 1)" stroke="rgba(0, 0, 0, 1)"/></svg>
+    <span class="nav-wordmark">CameraDuel</span>
+  </a>
+</nav>
 
-  <section id="mission" class="panel panel-light">
-    <div class="panel-inner">
-      <h2>About</h2>
-      <p class="section-sub">
-        Helping people stay close through creativity and shared presence.
-      </p>
+<main>
+  <div class="duck-wrap"><svg style="width:clamp(90px,15vw,150px);height:clamp(90px,15vw,150px)" viewBox="-75 -75 150 150" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision"><rect x="-55" y="3" width="85" height="17" fill="rgba(255, 217, 60, 1)" stroke="rgba(255, 217, 60, 1)" stroke-width="0"/><rect x="-55" y="0" width="7" height="7" fill="rgba(255, 217, 60, 1)" stroke="rgba(255, 217, 60, 1)" stroke-width="0"/><rect x="-10" y="0" width="11" height="3" fill="rgba(255, 217, 60, 1)" stroke="rgba(255, 217, 60, 1)" stroke-width="0"/><rect x="-35" y="20" width="68" height="30" fill="rgba(255, 217, 60, 1)" stroke="rgba(255, 217, 60, 1)" stroke-width="0"/><rect x="-45" y="20" width="10" height="20" fill="rgba(255, 217, 60, 1)" stroke="rgba(255, 217, 60, 1)" stroke-width="0"/><line x1="-30" y1="50" x2="30" y2="50" stroke="rgba(0, 0, 0, 1)" stroke-width="4"/><path d="M 30 5 Q 55 25 30 50" fill="rgba(255, 217, 60, 1)" stroke="rgba(0, 0, 0, 1)" stroke-width="4"/><path d="M -55 -3 Q -55 45 -30 50" fill="rgba(255, 217, 60, 1)" stroke="rgba(0, 0, 0, 1)" stroke-width="4"/><path d="M -55 -2 Q -35 10 0 -1" fill="rgba(0, 0, 0, 0)" stroke="rgba(0, 0, 0, 1)" stroke-width="4"/><line x1="-54.5" y1="-3.7" x2="-50" y2="-1" stroke="rgba(0, 0, 0, 1)" stroke-width="1"/><circle cx="30" cy="50" r="1.5" fill="rgba(0, 0, 0, 1)" stroke="rgba(0, 0, 0, 1)"/><circle cx="-30" cy="50" r="1.5" fill="rgba(0, 0, 0, 1)" stroke="rgba(0, 0, 0, 1)"/><circle cx="-55.1" cy="-2.3" r="1.5" fill="rgba(0, 0, 0, 1)" stroke="rgba(0, 0, 0, 1)"/><line x1="-56.45" y1="0" x2="-56.56" y2="-2" stroke="rgba(0, 0, 0, 1)" stroke-width="1"/><path d="M 27 48.46 Q 29 49 31.7 46" fill="rgba(255, 217, 60, 1)" stroke="rgba(0, 0, 0, 1)" stroke-width="1"/><circle cx="50" cy="-12" r="4" fill="rgba(255, 179, 70, 1)" stroke="rgba(255, 179, 70, 1)"/><circle cx="20" cy="-20" r="28" fill="rgba(0, 0, 0, 1)" stroke="rgba(0, 0, 0, 1)"/><circle cx="20" cy="-20" r="24" fill="rgba(255, 217, 60, 1)" stroke="rgba(255, 217, 60, 1)"/><rect x="0.7" y="-5" width="29.3" height="15" fill="rgba(255, 217, 60, 1)" stroke="rgba(255, 217, 60, 1)" stroke-width="0"/><circle cx="30.6" cy="5" r="2.2" fill="rgba(0, 0, 0, 1)" stroke="rgba(0, 0, 0, 1)"/><line x1="29" y1="6.5" x2="36" y2="11" stroke="rgba(0, 0, 0, 1)" stroke-width="1"/><path d="M 0.3 0.5 Q 4 -1.5 0.3 -4.6" fill="rgba(0, 0, 0, 1)" stroke="rgba(0, 0, 0, 1)" stroke-width="1"/><circle cx="28" cy="-28" r="2" fill="rgba(0, 0, 0, 1)" stroke="rgba(0, 0, 0, 1)"/><path d="M 30 -14 Q 34 -7 42 -7" fill="rgba(255, 217, 60, 1)" stroke="rgba(0, 0, 0, 1)" stroke-width="4"/><circle cx="30" cy="-14" r="1.5" fill="rgba(0, 0, 0, 1)" stroke="rgba(0, 0, 0, 1)"/><line x1="46" y1="-20" x2="57" y2="-12" stroke="rgba(0, 0, 0, 1)" stroke-width="4"/><line x1="43" y1="-6" x2="57" y2="-11" stroke="rgba(0, 0, 0, 1)" stroke-width="4"/><circle cx="57" cy="-11.5" r="1.9" fill="rgba(0, 0, 0, 1)" stroke="rgba(0, 0, 0, 1)"/><path d="M -20 22 Q -2.5 32 15 22" fill="rgba(255, 217, 60, 1)" stroke="rgba(0, 0, 0, 1)" stroke-width="4"/><circle cx="-20" cy="22" r="1.5" fill="rgba(0, 0, 0, 1)" stroke="rgba(0, 0, 0, 1)"/><circle cx="15" cy="22" r="1.5" fill="rgba(0, 0, 0, 1)" stroke="rgba(0, 0, 0, 1)"/></svg></div>
+  <div class="badge"><span>Coming Summer 2026</span></div>
+  <h1>Daily CameraDuels<br/>with <em>your friends.</em></h1>
+  <p class="sub">Same prompt. Different perspectives. One winner.</p>
 
-      <div class="card-grid">
-        <div class="card">
-          <h3>Shared Perspective</h3>
-          <p>
-            Two people, one moment. Overlapping viewpoints that invite
-            curiosity, empathy, and presence.
-          </p>
-        </div>
-
-        <div class="card">
-          <h3>Creativity Without Complexity</h3>
-          <p>
-            A low-pressure, low-friction way to be creative.
-            Simple by design. Intentional by nature.
-          </p>
-        </div>
-
-        <div class="card">
-          <h3>Connection First</h3>
-          <p>
-            Small, meaningful interactions that help people
-            stay close in a busy, noisy world.
-          </p>
-        </div>
-
-      </div>
-
-      <p class="section-sub">
-        CameraDuel started from a love of photography and shared moments. 
-        It’s about slowing down, noticing beauty, and connecting intentionally.
-      </p>
-      
-      <p class="availability">
-        Launching Q2 2026
-      </p>
-    </div>
-</section>
-
-<footer class="footer">
-  <div class="footer-inquiries-container">
-    <div class="footer-inquiries">
-      <div class="footer-inquiries-left">
-        <h2>Inquiries</h2>
-      </div>
-      <div class="footer-inquiries-right">
-        <p>For press, partnerships, or general questions: <a href="mailto:admin@cameraduel.com">admin@cameraduel.com</a></p>
-      </div>
-    </div>
-    <hr class="footer-divider" />
+  <div class="form-wrap" id="form-wrap">
+    <input type="email" id="email-input" placeholder="your@email.com" autocomplete="email"/>
+    <button id="submit-btn" onclick="submitEmail()">Join the pond</button>
+    <div class="error-msg" id="error-msg">Please enter a valid email address.</div>
   </div>
 
-  <div class="footer-bottom">
-    <a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms of Service</a>
-    <p>© 2026 CameraDuel LLC. All rights reserved.</p>
+  <div class="success" id="success-msg">
+    <span class="emoji">🦆</span>
+    <p>You're in the pond!</p>
+    <small>We'll let you know when CameraDuel drops.</small>
   </div>
+
+  <p class="form-note" id="form-note">No spam, ever. Unsubscribe anytime.</p>
+</main>
+
+<footer>
+  <div class="footer-logo">
+    <svg style="width:26px;height:26px;flex-shrink:0" viewBox="-75 -75 150 150" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision"><rect x="-55" y="3" width="85" height="17" fill="rgba(255, 217, 60, 1)" stroke="rgba(255, 217, 60, 1)" stroke-width="0"/><rect x="-55" y="0" width="7" height="7" fill="rgba(255, 217, 60, 1)" stroke="rgba(255, 217, 60, 1)" stroke-width="0"/><rect x="-10" y="0" width="11" height="3" fill="rgba(255, 217, 60, 1)" stroke="rgba(255, 217, 60, 1)" stroke-width="0"/><rect x="-35" y="20" width="68" height="30" fill="rgba(255, 217, 60, 1)" stroke="rgba(255, 217, 60, 1)" stroke-width="0"/><rect x="-45" y="20" width="10" height="20" fill="rgba(255, 217, 60, 1)" stroke="rgba(255, 217, 60, 1)" stroke-width="0"/><line x1="-30" y1="50" x2="30" y2="50" stroke="rgba(0, 0, 0, 1)" stroke-width="4"/><path d="M 30 5 Q 55 25 30 50" fill="rgba(255, 217, 60, 1)" stroke="rgba(0, 0, 0, 1)" stroke-width="4"/><path d="M -55 -3 Q -55 45 -30 50" fill="rgba(255, 217, 60, 1)" stroke="rgba(0, 0, 0, 1)" stroke-width="4"/><path d="M -55 -2 Q -35 10 0 -1" fill="rgba(0, 0, 0, 0)" stroke="rgba(0, 0, 0, 1)" stroke-width="4"/><line x1="-54.5" y1="-3.7" x2="-50" y2="-1" stroke="rgba(0, 0, 0, 1)" stroke-width="1"/><circle cx="30" cy="50" r="1.5" fill="rgba(0, 0, 0, 1)" stroke="rgba(0, 0, 0, 1)"/><circle cx="-30" cy="50" r="1.5" fill="rgba(0, 0, 0, 1)" stroke="rgba(0, 0, 0, 1)"/><circle cx="-55.1" cy="-2.3" r="1.5" fill="rgba(0, 0, 0, 1)" stroke="rgba(0, 0, 0, 1)"/><line x1="-56.45" y1="0" x2="-56.56" y2="-2" stroke="rgba(0, 0, 0, 1)" stroke-width="1"/><path d="M 27 48.46 Q 29 49 31.7 46" fill="rgba(255, 217, 60, 1)" stroke="rgba(0, 0, 0, 1)" stroke-width="1"/><circle cx="50" cy="-12" r="4" fill="rgba(255, 179, 70, 1)" stroke="rgba(255, 179, 70, 1)"/><circle cx="20" cy="-20" r="28" fill="rgba(0, 0, 0, 1)" stroke="rgba(0, 0, 0, 1)"/><circle cx="20" cy="-20" r="24" fill="rgba(255, 217, 60, 1)" stroke="rgba(255, 217, 60, 1)"/><rect x="0.7" y="-5" width="29.3" height="15" fill="rgba(255, 217, 60, 1)" stroke="rgba(255, 217, 60, 1)" stroke-width="0"/><circle cx="30.6" cy="5" r="2.2" fill="rgba(0, 0, 0, 1)" stroke="rgba(0, 0, 0, 1)"/><line x1="29" y1="6.5" x2="36" y2="11" stroke="rgba(0, 0, 0, 1)" stroke-width="1"/><path d="M 0.3 0.5 Q 4 -1.5 0.3 -4.6" fill="rgba(0, 0, 0, 1)" stroke="rgba(0, 0, 0, 1)" stroke-width="1"/><circle cx="28" cy="-28" r="2" fill="rgba(0, 0, 0, 1)" stroke="rgba(0, 0, 0, 1)"/><path d="M 30 -14 Q 34 -7 42 -7" fill="rgba(255, 217, 60, 1)" stroke="rgba(0, 0, 0, 1)" stroke-width="4"/><circle cx="30" cy="-14" r="1.5" fill="rgba(0, 0, 0, 1)" stroke="rgba(0, 0, 0, 1)"/><line x1="46" y1="-20" x2="57" y2="-12" stroke="rgba(0, 0, 0, 1)" stroke-width="4"/><line x1="43" y1="-6" x2="57" y2="-11" stroke="rgba(0, 0, 0, 1)" stroke-width="4"/><circle cx="57" cy="-11.5" r="1.9" fill="rgba(0, 0, 0, 1)" stroke="rgba(0, 0, 0, 1)"/><path d="M -20 22 Q -2.5 32 15 22" fill="rgba(255, 217, 60, 1)" stroke="rgba(0, 0, 0, 1)" stroke-width="4"/><circle cx="-20" cy="22" r="1.5" fill="rgba(0, 0, 0, 1)" stroke="rgba(0, 0, 0, 1)"/><circle cx="15" cy="22" r="1.5" fill="rgba(0, 0, 0, 1)" stroke="rgba(0, 0, 0, 1)"/></svg>
+    <span class="footer-wordmark">CameraDuel</span>
+  </div>
+  <div class="footer-links">
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+  </div>
+  <span class="footer-copy">© 2026 CameraDuel LLC</span>
 </footer>
 
-  
 <script>
-  function scrollToMission() {
-    const missionSection = document.getElementById('mission');
-  
-    missionSection.scrollIntoView({ 
-      behavior: 'smooth' 
-    });
+async function submitEmail() {
+  const input = document.getElementById('email-input');
+  const btn = document.getElementById('submit-btn');
+  const errorMsg = document.getElementById('error-msg');
+  const email = input.value.trim();
+
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    errorMsg.style.display = 'block';
+    return;
   }
+  errorMsg.style.display = 'none';
+  btn.disabled = true;
+  btn.textContent = 'Joining...';
+
+  try {
+    const res = await fetch('https://formspree.io/f/mvzdwkwr', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ email: email })
+    });
+
+    if (res.ok) {
+      document.getElementById('form-wrap').style.display = 'none';
+      document.getElementById('form-note').style.display = 'none';
+      document.getElementById('success-msg').style.display = 'flex';
+    } else {
+      btn.disabled = false;
+      btn.textContent = 'Join the pond';
+      errorMsg.textContent = 'Something went wrong. Please try again.';
+      errorMsg.style.display = 'block';
+    }
+  } catch(e) {
+    btn.disabled = false;
+    btn.textContent = 'Join the pond';
+    errorMsg.textContent = 'Something went wrong. Please try again.';
+    errorMsg.style.display = 'block';
+  }
+}
+
+document.getElementById('email-input').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') submitEmail();
+});
 </script>
 
 </body>
