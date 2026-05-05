@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "VB6UA66H35.com.cameraduel.app",
+        "paths": ["/auth/callback", "/auth/*"]
+      }
+    ]
+  }
+}
