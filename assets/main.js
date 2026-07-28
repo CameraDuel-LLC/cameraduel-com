@@ -29,7 +29,7 @@
       input.disabled = false;
       button.textContent = 'Get early access';
       status.classList.add('error');
-      status.textContent = 'Something went wrong — please try again, or email hello@cameraduel.com.';
+      status.textContent = 'Something went wrong — please try again, or email admin@cameraduel.com.';
     });
   });
 })();
