@@ -106,6 +106,10 @@ footer .links a:hover{color:var(--ink2)}
 
 @media (max-width:720px){
   .wrap{padding:0 24px}
+  nav{flex-wrap:wrap;gap:6px 14px}
+  nav .brand img{width:26px;height:26px}
+  nav .brand span{font-size:19px}
+  .navlink{font-size:12.5px}
   .hero{padding:48px 0 64px}
   .mark{width:76px;height:76px}
   h1{font-size:clamp(42px,9vw,70px)}
