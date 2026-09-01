@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<meta name="robots" content="noindex, nofollow">
+<title>CameraDuel — beta</title>
+<meta name="theme-color" content="#0B0A09" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F7F6F3" media="(prefers-color-scheme: light)">
+
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="/favicon.png" type="image/png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&display=swap">
+<link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+
+<header class="wrap">
+  <nav>
+    <a class="brand" href="/">
+      <img src="/assets/cam.svg" alt="" width="31" height="31">
+      <span>CameraDuel</span>
+    </a>
+    <a class="navlink" href="mailto:admin@cameraduel.com">admin@cameraduel.com</a>
+  </nav>
+</header>
+
+<!-- Passcode gate (shown first) -->
+<main class="gate" id="gate">
+  <div class="wrap">
+    <img class="mark" src="/assets/cam.svg" alt="" width="82" height="82">
+    <h1>Members only</h1>
+    <p class="sub">Enter your beta passcode to get the app.</p>
+    <form class="form" id="gateform" autocomplete="off">
+      <label class="visually-hidden" for="code">Beta passcode</label>
+      <input class="input" id="code" name="code" type="text" required
+             autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false"
+             placeholder="passcode">
+      <button class="btn" type="submit">Enter</button>
+    </form>
+    <p class="err" id="gate-err" aria-live="polite"></p>
+  </div>
+</main>
+
+<!-- Revealed after correct passcode -->
+<article class="doc" id="beta" hidden>
+  <h1>You found the beta.</h1>
+  <p class="lede">You're one of the very first people to use CameraDuel. Thank you — genuinely. You being here is what turns this from a project into something people actually use.</p>
+
+  <h2>What this is</h2>
+  <p>CameraDuel is a small daily ritual for keeping up with the friends you don't want to lose touch with. Every day everyone gets the same prompt — you take a photo, your friends take theirs, and you all see how you each saw it. No feed to scroll, no first move to agonize over. Just one real moment a day.</p>
+
+  <h2>Get the app</h2>
+  <div class="storebtns" id="storebtns"></div>
+  <p>New builds land often. If a button says "coming soon," that platform's build just isn't live yet — check back in a day or two.</p>
+
+  <h2>What to expect</h2>
+  <p>This is an early beta. Some things will be rough and a few might break — that's exactly what you're here to help catch. You can't break anything for anyone else, so poke around freely.</p>
+
+  <h2>Tell me everything</h2>
+  <p>The single most useful thing you can do is tell me what felt confusing, delightful, broken, or missing. Email <a href="mailto:admin@cameraduel.com?subject=CameraDuel%20beta%20feedback">admin@cameraduel.com</a> — screenshots welcome, and small notes are gold.</p>
+
+  <p>Thank you for being one of the first.<br>— Helen, founder of CameraDuel</p>
+</article>
+
+<div class="wrap">
+  <footer>
+    <div class="brand">
+      <img src="/assets/cam.svg" alt="" width="22" height="22">
+      <span>CameraDuel</span>
+    </div>
+    <div class="links">
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+      <a href="/delete.html">Delete account</a>
+    </div>
+    <div>&copy; 2026 CameraDuel LLC</div>
+  </footer>
+</div>
+
+<script src="/assets/beta.js"></script>
+</body>
+</html>
