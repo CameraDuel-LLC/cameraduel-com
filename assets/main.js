@@ -27,7 +27,7 @@
     }).catch(function () {
       button.disabled = false;
       input.disabled = false;
-      button.textContent = 'Get early access';
+      button.textContent = 'Notify me';
       status.classList.add('error');
       status.textContent = 'Something went wrong — please try again, or email admin@cameraduel.com.';
     });

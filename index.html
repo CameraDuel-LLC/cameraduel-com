@@ -2,91 +2,383 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="dark light">
-<title>CameraDuel — daily photo duels with your friends</title>
-<meta name="description" content="Same prompt. Different perspectives. One winner. Coming summer 2026.">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>CameraDuel — Daily photo challenges with friends.</title>
+<meta name="description" content="One prompt. One friend, chosen at random. Twenty-four hours.">
 <link rel="canonical" href="https://cameraduel.com/">
-<meta name="theme-color" content="#0B0A09" media="(prefers-color-scheme: dark)">
-<meta name="theme-color" content="#F7F6F3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="CameraDuel">
 <meta property="og:url" content="https://cameraduel.com/">
-<meta property="og:title" content="CameraDuel — daily photo duels with your friends">
-<meta property="og:description" content="Same prompt. Different perspectives. One winner. Coming summer 2026.">
+<meta property="og:title" content="CameraDuel — Daily photo challenges with friends.">
+<meta property="og:description" content="One prompt. One friend, chosen at random. Twenty-four hours.">
 <meta property="og:image" content="https://cameraduel.com/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Cam the duck and the CameraDuel wordmark">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="CameraDuel — daily photo duels with your friends">
-<meta name="twitter:description" content="Same prompt. Different perspectives. One winner. Coming summer 2026.">
+<meta name="twitter:title" content="CameraDuel — Daily photo challenges with friends.">
+<meta name="twitter:description" content="One prompt. One friend, chosen at random. Twenty-four hours.">
 <meta name="twitter:image" content="https://cameraduel.com/assets/og.png">
 
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="alternate icon" href="/favicon.png" type="image/png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&display=swap">
-<link rel="stylesheet" href="/assets/styles.css">
+<style>
+:root{
+  --ink:#000000;
+  --field:#0B1211;
+  --cream:#F2EDE4;
+  --teal:#4DE1DC;
+  --mint:#83DFA4;
+  --gold:#E6C463;
+  --mute:#8C8C8C;
+  --edge:rgba(242,237,228,.14);
+  --sans:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  --gap:clamp(72px,9vw,140px);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--ink);color:var(--cream);
+  font-family:var(--sans);font-size:17px;line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1400px;margin:0 auto;padding:0 28px}
+.rule{height:2px;background:linear-gradient(90deg,var(--teal),var(--mint) 55%,var(--gold))}
+a{color:inherit}
+h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.025em;line-height:1.04}
+p{margin:0}
+
+/* ---------- nav ---------- */
+nav{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
+.mark{display:flex;align-items:center;gap:10px;font-size:21px;font-weight:700;letter-spacing:-.02em}
+.mark img{width:36px;height:36px}
+.navlink{font-size:15px;color:var(--mute);text-decoration:none}
+.navlink:hover{color:var(--cream)}
+
+/* ---------- hero ---------- */
+.herobg{background:radial-gradient(120% 90% at 78% 42%,var(--field) 0%,var(--ink) 62%)}
+.hero{
+  display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;
+  padding:clamp(48px,7vw,92px) 28px var(--gap);
+}
+.eyebrow{color:var(--teal);font-size:clamp(15px,1.7vw,18px);margin-bottom:18px}
+.hero h1{font-size:clamp(46px,7.4vw,86px)}
+.sub{font-size:clamp(19px,2.2vw,25px);color:#CFC9BF;margin-top:16px;max-width:24ch}
+.sub b{font-weight:700;font-style:italic;color:var(--cream)}
+.stores{display:flex;align-items:center;gap:14px;margin-top:34px;flex-wrap:wrap;--badge:48px}
+.store{display:inline-flex;text-decoration:none;transition:opacity .18s}
+.store:hover{opacity:.85}
+.store img{display:block;width:auto;height:var(--badge)}
+/* Google's badge ships with its required clear space baked into the artwork
+   (41px of 250). Scale past it and pull the padding back so both badges read
+   at the same visual size without altering either official asset. */
+.store.gp img{height:calc(var(--badge) * 250 / 168);margin:calc(var(--badge) * -41 / 168)}
+
+/* ---------- duel pair (hero + reused) ---------- */
+.pair{position:relative;display:flex;justify-content:center;gap:18px;perspective:1400px}
+.card{
+  width:47%;max-width:260px;aspect-ratio:4/5;position:relative;
+  transform-style:preserve-3d;transition:transform .9s cubic-bezier(.2,.7,.2,1);
+}
+.card.l{transform:rotate(-4deg)}
+.card.r{transform:rotate(4deg) translateY(16px)}
+.face{
+  position:absolute;inset:0;backface-visibility:hidden;
+  padding:3px;background:linear-gradient(150deg,var(--teal),var(--mint) 55%,var(--gold));
+}
+.face img{width:100%;height:100%;object-fit:cover;display:block}
+.back{
+  position:absolute;inset:0;backface-visibility:hidden;transform:rotateY(180deg);
+  padding:3px;background:linear-gradient(150deg,var(--teal),var(--mint) 55%,var(--gold));
+}
+.back i{
+  display:flex;width:100%;height:100%;background:#080B0B;align-items:center;justify-content:center;
+  font-style:normal;font-size:12px;color:var(--mute);letter-spacing:.06em;
+}
+.sealed .card{transform:rotateY(180deg)}
+.sealed .card.l{transform:rotate(-4deg) rotateY(180deg)}
+.sealed .card.r{transform:rotate(4deg) translateY(16px) rotateY(180deg)}
+.promptline{
+  text-align:center;margin-top:26px;font-size:15px;color:var(--mute);
+  /* two lines' worth, so a longer prompt never shoves the page around mid-rotation */
+  min-height:3em;transition:opacity .45s ease;
+}
+.promptline b{color:var(--cream);font-weight:500}
+.sealed .promptline{opacity:0}
+
+/* ---------- sections ---------- */
+section{padding:var(--gap) 0}
+.kicker{color:var(--teal);font-size:15px;margin-bottom:14px}
+h2{font-size:clamp(32px,4.6vw,50px)}
+.lede{font-size:19px;color:#BDB7AE;margin-top:16px;max-width:56ch;line-height:1.55}
+
+/* four beats — a real sequence, so it is numbered */
+.beats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--edge);margin-top:48px}
+.beat{background:var(--ink);padding:28px 22px 32px}
+.beat em{font-style:normal;color:var(--teal);font-size:13px;display:block;margin-bottom:14px}
+.beat h3{font-size:21px;margin-bottom:9px}
+.beat p{color:var(--mute);font-size:15px;line-height:1.5}
+
+/* split blocks */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,88px);align-items:center}
+.split.flip .copy{order:2}
+
+/* screenshot slots */
+.shot{
+  aspect-ratio:393/800;max-width:280px;width:100%;margin:0 auto;
+  border:1px solid var(--edge);background:
+    repeating-linear-gradient(135deg,#080808 0 11px,#0C0C0C 11px 22px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:22px;color:var(--mute);font-size:13px;line-height:1.5;
+}
+.shot b{color:var(--teal);font-weight:500;display:block;margin-bottom:7px;font-size:12px;letter-spacing:.05em}
+.shot.wide{aspect-ratio:16/10;max-width:100%}
+
+/* modes */
+.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--edge);margin-top:44px}
+.mode{background:var(--ink);padding:30px 24px 34px}
+.mode h3{font-size:19px;margin-bottom:10px}
+.mode p{color:var(--mute);font-size:15px}
+
+/* pricing */
+.price{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--edge);margin-top:44px;max-width:620px}
+.tier{background:var(--ink);padding:30px 26px 34px}
+.tier .amt{font-size:34px;font-weight:700;letter-spacing:-.03em}
+.tier .per{color:var(--mute);font-size:15px;margin-top:5px}
+.tier.best{background:var(--field)}
+.tier.best .amt{color:var(--teal)}
+.plist{margin:26px 0 0;padding:0;list-style:none;max-width:52ch}
+.plist li{padding:13px 0;border-top:1px solid var(--edge);font-size:16px;color:#BDB7AE}
+
+/* closing */
+.close{text-align:center;padding:var(--gap) 28px}
+.close h2{font-size:clamp(34px,5.4vw,62px)}
+footer{border-top:1px solid var(--edge);padding:34px 0 60px;color:var(--mute);font-size:14px}
+.flinks{display:flex;gap:22px;flex-wrap:wrap;margin-top:12px}
+.flinks a{text-decoration:none}
+.flinks a:hover{color:var(--cream)}
+
+@media(max-width:860px){
+  .hero{grid-template-columns:1fr;gap:52px;text-align:left}
+  .beats{grid-template-columns:repeat(2,1fr)}
+  .split{grid-template-columns:1fr;gap:40px}
+  .split.flip .copy{order:0}
+  .modes{grid-template-columns:1fr}
+  .price{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  .card{transition:none}
+  .sealed .card,.sealed .card.l,.sealed .card.r{transform:none}
+  .sealed .card.l{transform:rotate(-4deg)}
+  .sealed .card.r{transform:rotate(4deg) translateY(16px)}
+}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+</style>
 </head>
 <body>
+<div class="rule"></div>
 
-<header class="wrap">
+<div class="wrap">
   <nav>
-    <div class="brand">
-      <img src="/assets/cam.svg" alt="" width="31" height="31">
-      <span>CameraDuel</span>
-    </div>
-    <a class="navlink" href="mailto:admin@cameraduel.com">admin@cameraduel.com</a>
+    <div class="mark"><img src="/assets/cam.svg" alt="" width="36" height="36">CameraDuel</div>
+    <a class="navlink" href="#how">How it works</a>
   </nav>
+</div>
+
+<!-- HERO -->
+<header class="herobg">
+<div class="hero wrap">
+  <div>
+    <p class="eyebrow">daily photo challenges with friends</p>
+    <h1>New day,<br>new matchup,<br>new prompt.</h1>
+    <p class="sub">One prompt. One friend, chosen at random. Twenty&#8209;four hours.</p>
+    <div class="stores">
+      <a class="store" href="#"><img src="/assets/badge-app-store.svg" alt="Download on the App Store" width="120" height="40"></a>
+      <a class="store gp" href="#"><img src="/assets/badge-google-play.png" alt="Get it on Google Play" width="646" height="250"></a>
+    </div>
+  </div>
+
+  <div class="stage sealed" id="stage">
+    <div class="pair">
+      <div class="card l">
+        <div class="face"><img id="shot-l" alt="A tree canopy against blue sky" src="/assets/duel-tree.jpg" width="1000" height="750"></div>
+        <div class="back"><i>SEALED</i></div>
+      </div>
+      <div class="card r">
+        <div class="face"><img id="shot-r" alt="A stained-glass dome seen from below" src="/assets/duel-dome.jpg" width="1000" height="750"></div>
+        <div class="back"><i>SEALED</i></div>
+      </div>
+    </div>
+    <p class="promptline" id="promptline"><span id="prompt-lead">Take a picture of</span> <b id="prompt-text">something from below</b></p>
+  </div>
+</div>
 </header>
 
-<main class="hero">
-  <div class="wrap">
-    <img class="mark" src="/assets/cam.svg" alt="" width="98" height="98">
-    <p class="chip"><i aria-hidden="true"></i>Coming summer 2026</p>
-    <h1>Daily photo duels<br>with <em>your friends.</em></h1>
-    <p class="sub">Same prompt. Different perspectives. One winner.</p>
-    <form class="form" id="waitlist" action="https://formspree.io/f/mvzdwkwr" method="POST">
-      <label class="visually-hidden" for="email">Email address</label>
-      <input class="input" id="email" name="email" type="email" required
-             autocomplete="email" inputmode="email" placeholder="your@email.com">
-      <button class="btn" type="submit">Get early access</button>
-    </form>
-    <p class="status" id="form-status" aria-live="polite"></p>
-    <p class="fineprint" id="fineprint">One email when we launch. Nothing else, ever.</p>
-  </div>
-</main>
-
-<section class="about">
-  <div class="wrap">
-    <div class="about-inner">
-      <p class="kicker">What it is</p>
-      <h2>A small daily ritual for the friends you don't want to lose touch with.</h2>
-      <p>Every day, everyone gets the same prompt. You take a photo, your friend takes theirs, and you both see how you each saw it. No feed to scroll, no first move to agonize over — just one real moment with someone you care about, every day.</p>
-      <p class="values"><i aria-hidden="true"></i>No ads · No data sales · Ever</p>
-    </div>
+<!-- HOW A DUEL WORKS -->
+<section id="how" class="wrap">
+  <p class="kicker">how a duel works</p>
+  <h2>Four steps, once a day.</h2>
+  <div class="beats">
+    <div class="beat"><em>First</em><h3>Shoot</h3><p>You get the prompt and 24 hours. So does your opponent.</p></div>
+    <div class="beat"><em>Then</em><h3>Compare</h3><p>Once you've both submitted, the photos go side by side.</p></div>
+    <div class="beat"><em>Then</em><h3>Vote</h3><p>You each pick a winner.</p></div>
+    <div class="beat"><em>Finally</em><h3>Reveal</h3><p>Agree and it's settled. Disagree and it's a tie.</p></div>
   </div>
 </section>
 
-<div class="wrap">
-  <footer>
-    <div class="brand">
-      <img src="/assets/cam.svg" alt="" width="22" height="22">
-      <span>CameraDuel</span>
+<!-- PHOTO OF THE DAY -->
+<section class="wrap">
+  <div class="split">
+    <div class="copy">
+      <p class="kicker">photo of the day</p>
+      <h2>Everyone gets the same prompt.</h2>
+      <p class="lede">One prompt a day, one friend chosen at random, 24 hours to answer it. Free every day. Show up to keep your streak going.</p>
     </div>
-    <div class="links">
-      <a href="privacy.html">Privacy</a>
-      <a href="terms.html">Terms</a>
-    </div>
-    <div>&copy; 2026 CameraDuel LLC</div>
-  </footer>
-</div>
+    <div class="shot"><b>SCREENSHOT 1</b>Home screen, Photo of the Day ready — prompt visible, matchup and streak in frame</div>
+  </div>
+</section>
 
-<script src="/assets/main.js"></script>
+<!-- MODES -->
+<section class="wrap">
+  <p class="kicker">start your own</p>
+  <h2>Duel whoever you want.</h2>
+  <div class="modes">
+    <div class="mode"><h3>One friend</h3><p>Challenge someone directly and settle it between you.</p></div>
+    <div class="mode"><h3>A group</h3><p>Everyone shoots the same prompt. Everyone votes.</p></div>
+    <div class="mode"><h3>Just you</h3><p>A prompt with nothing to win, for when you just want the picture.</p></div>
+  </div>
+  <p class="lede" style="margin-top:30px">Every duel runs on the same 24-hour clock.</p>
+</section>
+
+<!-- PRIVACY -->
+<section class="wrap">
+  <div class="split flip">
+    <div class="copy">
+      <p class="kicker">your pond</p>
+      <h2>Only the people you add.</h2>
+      <p class="lede">No feed, no followers, no strangers. Your photos are seen by the people in your duel and nobody else.</p>
+    </div>
+    <div class="shot"><b>SCREENSHOT 2</b>Duels tab or friend list — shows the closed circle, no public surface</div>
+  </div>
+</section>
+
+<!-- ARCHIVE -->
+<section class="wrap">
+  <div class="split">
+    <div class="copy">
+      <p class="kicker">archive</p>
+      <h2>Every duel, saved.</h2>
+      <p class="lede">No limits, nothing to buy back. Look back at any day you've played — and see your streak, your longest rivalry, your most-loved shot.</p>
+    </div>
+    <div class="shot"><b>SCREENSHOT 3</b>Archive — a stats card, streak or rivalry, whichever looks best</div>
+  </div>
+</section>
+
+<!-- PREMIUM -->
+<section class="wrap">
+  <p class="kicker">want more?</p>
+  <h2>CameraDuel Premium.</h2>
+  <p class="lede">Everything else is free, forever. Premium adds three things.</p>
+  <ul class="plist">
+    <li>Write your own prompts</li>
+    <li>Set up recurring duels with the friends you play most</li>
+    <li>Send custom birthday cards</li>
+  </ul>
+  <div class="price">
+    <div class="tier"><div class="amt">$7.99</div><div class="per">per month</div></div>
+    <div class="tier best"><div class="amt">$59.99</div><div class="per">per year — $5 a month</div></div>
+  </div>
+</section>
+
+<!-- CLOSE -->
+<section class="close wrap">
+  <h2>Today's prompt is waiting.</h2>
+  <div class="stores" style="justify-content:center">
+    <a class="store" href="#"><img src="/assets/badge-app-store.svg" alt="Download on the App Store" width="120" height="40"></a>
+    <a class="store gp" href="#"><img src="/assets/badge-google-play.png" alt="Get it on Google Play" width="646" height="250"></a>
+  </div>
+</section>
+
+<footer class="wrap">
+  <div class="mark" style="font-size:17px">CameraDuel</div>
+  <div class="flinks">
+    <a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/support.html">Support</a><a href="/delete.html">Delete your account</a>
+  </div>
+  <p style="margin-top:20px">&copy; 2026 CameraDuel LLC</p>
+</footer>
+
+<script>
+// The hero runs the app's own mechanic on a loop: sealed, reveal, hold, reseal —
+// and each reseal swaps in a different duel behind the cards' backs.
+// To add a duel, add an entry. Photos live in /assets. `lead` is optional
+// and defaults to "Take a picture of".
+var DUELS = [
+  {
+    prompt: 'something from below',
+    left:  { src: '/assets/duel-tree.jpg', alt: 'A tree canopy against blue sky' },
+    right: { src: '/assets/duel-dome.jpg', alt: 'A stained-glass dome seen from below' }
+  }
+];
+
+(function(){
+  var stage = document.getElementById('stage');
+  var shotL = document.getElementById('shot-l');
+  var shotR = document.getElementById('shot-r');
+  var lead  = document.getElementById('prompt-lead');
+  var text  = document.getElementById('prompt-text');
+  var reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  var FLIP = 900;   // matches the .card transition
+  var HOLD = 5200;  // how long a duel stays face-up
+  var i = 0, timer = null;
+
+  function paint(d){
+    shotL.src = d.left.src;  shotL.alt = d.left.alt;
+    shotR.src = d.right.src; shotR.alt = d.right.alt;
+    lead.textContent = d.lead || 'Take a picture of';
+    text.textContent = d.prompt;
+  }
+
+  function preload(d){
+    if(!d) return;
+    [d.left.src, d.right.src].forEach(function(src){ new Image().src = src; });
+  }
+
+  function reveal(){ stage.classList.remove('sealed'); }
+
+  function next(){
+    stage.classList.add('sealed');
+    timer = setTimeout(function(){          // cards are showing their backs — swap unseen
+      i = (i + 1) % DUELS.length;
+      paint(DUELS[i]);
+      preload(DUELS[(i + 1) % DUELS.length]);
+      timer = setTimeout(function(){ reveal(); schedule(); }, 60);
+    }, FLIP);
+  }
+
+  function schedule(){ timer = setTimeout(next, HOLD); }
+
+  // The markup carries duel one so there's an image before JS runs; repaint it
+  // anyway (behind the sealed backs) so the list stays the single source of truth.
+  paint(DUELS[0]);
+
+  if(reduce || DUELS.length < 2){ setTimeout(reveal, reduce ? 0 : FLIP); return; }
+
+  preload(DUELS[1]);
+  setTimeout(function(){ reveal(); schedule(); }, FLIP);
+
+  // Don't burn through duels while nobody's looking.
+  document.addEventListener('visibilitychange', function(){
+    if(document.hidden){ clearTimeout(timer); }
+    else if(!stage.classList.contains('sealed')){ schedule(); }
+    else { next(); }
+  });
+})();
+</script>
 </body>
 </html>
