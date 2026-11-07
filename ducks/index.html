@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>Hi, I'm Cam — CameraDuel</title>
+<meta name="description" content="Meet Cam, the CameraDuel duck. Download CameraDuel, then pass Cam on to a friend and challenge them to a duel.">
+<link rel="canonical" href="https://cameraduel.com/ducks/">
+<meta name="theme-color" content="#000000">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CameraDuel">
+<meta property="og:url" content="https://cameraduel.com/ducks/">
+<meta property="og:title" content="Hi, I'm Cam — CameraDuel">
+<meta property="og:description" content="Meet Cam, the CameraDuel duck. Download CameraDuel, then pass Cam on to a friend and challenge them to a duel.">
+<meta property="og:image" content="https://cameraduel.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Cam the duck and the CameraDuel wordmark">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Hi, I'm Cam — CameraDuel">
+<meta name="twitter:description" content="Meet Cam, the CameraDuel duck. Download CameraDuel, then pass Cam on to a friend and challenge them to a duel.">
+<meta name="twitter:image" content="https://cameraduel.com/assets/og.png">
+
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="/favicon.png" type="image/png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+
+<link rel="stylesheet" href="/assets/doc.css">
+<style>
+/* Page-only styles. Tokens and footer come from doc.css. */
+main.duck{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  min-height:100vh;min-height:100svh;
+  padding-top:clamp(32px,6vh,64px);padding-bottom:clamp(56px,9vh,96px);
+}
+
+/* ---------- Cam ---------- */
+/* The top padding is room for the speech bubble, so showing it never moves the page. */
+.stage{position:relative;padding-top:56px}
+.pop{animation:pop-in .7s cubic-bezier(.2,1.4,.4,1) both}
+.cam{
+  display:block;margin:0;padding:0;border:0;background:none;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;transform-origin:50% 90%;
+}
+.cam img{
+  display:block;width:clamp(130px,24vh,200px);height:auto;
+  animation:bob 3.2s ease-in-out .7s infinite;
+}
+.cam.squish{animation:squish .45s ease-out}
+
+.bubble{
+  position:absolute;top:0;left:50%;transform:translate(-50%,6px) scale(.9);
+  background:var(--cream);color:var(--ink);font-weight:700;font-size:16px;letter-spacing:-.01em;
+  padding:9px 15px;white-space:nowrap;opacity:0;pointer-events:none;
+  transition:opacity .18s,transform .18s;
+}
+.bubble::after{
+  content:"";position:absolute;left:50%;bottom:-7px;margin-left:-7px;
+  border:7px solid transparent;border-bottom:0;border-top-color:var(--cream);
+}
+.bubble.on{opacity:1;transform:translate(-50%,0) scale(1)}
+
+@keyframes pop-in{0%{transform:scale(0) rotate(-12deg)}100%{transform:scale(1) rotate(0)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes squish{
+  0%{transform:scale(1,1)}
+  30%{transform:scale(1.18,.78)}
+  60%{transform:scale(.92,1.1)}
+  100%{transform:scale(1,1)}
+}
+
+/* ---------- copy ---------- */
+.copy{max-width:32ch;margin-top:clamp(16px,3vh,32px)}
+h1{font-size:clamp(38px,11vw,52px)}
+.intro{margin-top:14px;font-size:17px;line-height:1.6;color:#BDB7AE}
+.warm{margin-top:clamp(20px,3.6vh,34px);font-size:17px;line-height:1.6;color:#BDB7AE}
+/* The ask: a step up from the two lines around it. */
+.cta{margin-top:clamp(24px,4.4vh,40px);font-size:20px;line-height:1.45;font-weight:600;letter-spacing:-.01em;color:var(--cream)}
+
+/* ---------- store badges (same treatment as the home page) ---------- */
+.stores{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:clamp(14px,2.4vh,22px);flex-wrap:wrap;--badge:48px}
+.store{display:inline-flex;text-decoration:none;transition:opacity .18s}
+.store:hover{opacity:.85}
+.store img{display:block;width:auto;height:var(--badge)}
+/* Google's badge ships with its clear space baked in; scale past it and pull the padding back. */
+.store.gp img{height:calc(var(--badge) * 250 / 168);margin:calc(var(--badge) * -41 / 168)}
+.before{margin-top:clamp(24px,4.4vh,40px);font-size:15px;color:var(--teal)}
+
+#confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:10}
+
+@media(prefers-reduced-motion:reduce){
+  .pop,.cam img,.cam.squish{animation:none}
+  .bubble{transition:none}
+}
+</style>
+</head>
+<body>
+
+<main class="duck wrap">
+  <div class="stage">
+    <div class="bubble" id="bubble" role="status" aria-live="polite"></div>
+    <div class="pop">
+      <button class="cam" id="cam" type="button" aria-label="Cam the duck. Tap for a quack."><img src="/assets/cam.svg" alt="" width="176" height="176"></button>
+    </div>
+  </div>
+
+  <div class="copy">
+    <h1 id="headline"></h1>
+    <p class="intro" id="intro"></p>
+    <p class="warm" id="warm"></p>
+    <p class="cta" id="cta"></p>
+  </div>
+
+  <p class="before" id="before"></p>
+  <div class="stores" id="stores">
+    <a class="store" id="ios" href="https://apps.apple.com/app/id6759408078"><img src="/assets/badge-app-store.svg" alt="" width="120" height="40"></a>
+    <a class="store gp" id="android" href="https://play.google.com/store/apps/details?id=com.cameraduel.app"><img src="/assets/badge-google-play.png" alt="" width="646" height="250"></a>
+  </div>
+</main>
+
+<footer class="wrap">
+  <div class="mark">CameraDuel</div>
+  <div class="flinks">
+    <a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/child-safety.html">Child safety</a><a href="/support.html">Support</a><a href="/delete.html">Delete your account</a>
+  </div>
+  <p style="margin-top:20px">&copy; 2026 CameraDuel LLC</p>
+</footer>
+
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<script>
+// All copy lives here.
+var COPY = {
+  headline: "Hi, I'm Cam,",
+  intro: "the mascot of CameraDuel, a daily photo challenge app that makes staying in touch with your friends effortless.",
+  warmLine: "However I got to you, someone thinks you're a pretty cool duck :)",
+  cta: "For your first challenge, download CameraDuel, then pass me on to a friend you care about.",
+  iosButton: "Download on the App Store",
+  androidButton: "Get it on Google Play",
+  beforeButtons: "Today's prompt is waiting!",
+  camTapLines: ["Quack!", "Pass me on!", "Got a friend in mind?", "Take my picture!"]
+};
+
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  // ---------- copy ----------
+  $('headline').textContent = COPY.headline;
+  $('intro').textContent = COPY.intro;
+  $('warm').textContent = COPY.warmLine;
+  $('cta').textContent = COPY.cta;
+  $('before').textContent = COPY.beforeButtons;
+  $('ios').querySelector('img').alt = COPY.iosButton;
+  $('android').querySelector('img').alt = COPY.androidButton;
+
+  // Android visitors get Google Play first; everyone else gets the App Store first.
+  if (/android/i.test(navigator.userAgent)) {
+    $('stores').insertBefore($('android'), $('ios'));
+  }
+
+  // ---------- confetti (hand-rolled canvas) ----------
+  var canvas = $('confetti');
+  var ctx = canvas.getContext('2d');
+  var COLORS = ['#4DE1DC', '#83DFA4', '#E6C463', '#F2EDE4'];
+  var bits = [];
+  var running = false;
+  var dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+  function resize() {
+    canvas.width = Math.round(window.innerWidth * dpr);
+    canvas.height = Math.round(window.innerHeight * dpr);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function burst(count, power) {
+    if (reduce) return;
+    var r = $('cam').getBoundingClientRect();
+    var x = r.left + r.width / 2;
+    var y = r.top + r.height * 0.45;
+    for (var i = 0; i < count; i++) {
+      var angle = -Math.PI / 2 + (Math.random() - 0.5) * Math.PI * 1.1;
+      var speed = (4 + Math.random() * 9) * power;
+      bits.push({
+        x: x, y: y,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        w: 5 + Math.random() * 6,
+        h: 3 + Math.random() * 5,
+        rot: Math.random() * Math.PI * 2,
+        spin: (Math.random() - 0.5) * 0.35,
+        color: COLORS[(Math.random() * COLORS.length) | 0],
+        life: 0,
+        max: 70 + Math.random() * 50
+      });
+    }
+    if (!running) { running = true; requestAnimationFrame(step); }
+  }
+
+  function step() {
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    bits = bits.filter(function (b) { return b.life < b.max; });
+    bits.forEach(function (b) {
+      b.life++;
+      b.vy += 0.32;
+      b.vx *= 0.985;
+      b.vy *= 0.985;
+      b.x += b.vx;
+      b.y += b.vy;
+      b.rot += b.spin;
+      ctx.save();
+      ctx.globalAlpha = Math.min(1, (b.max - b.life) / 20);
+      ctx.translate(b.x, b.y);
+      ctx.rotate(b.rot);
+      ctx.fillStyle = b.color;
+      ctx.fillRect(-b.w / 2, -b.h / 2, b.w, b.h);
+      ctx.restore();
+    });
+    if (bits.length) { requestAnimationFrame(step); }
+    else { running = false; ctx.clearRect(0, 0, window.innerWidth, window.innerHeight); }
+  }
+
+  // Big one once Cam has popped in.
+  setTimeout(function () { burst(110, 1.15); }, reduce ? 0 : 350);
+
+  // ---------- tapping Cam ----------
+  var cam = $('cam');
+  var bubble = $('bubble');
+  var last = -1;
+  var hideTimer = null;
+
+  cam.addEventListener('click', function () {
+    var n;
+    do { n = (Math.random() * COPY.camTapLines.length) | 0; }
+    while (n === last && COPY.camTapLines.length > 1);
+    last = n;
+
+    bubble.textContent = COPY.camTapLines[n];
+    bubble.classList.add('on');
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(function () { bubble.classList.remove('on'); }, 1800);
+
+    if (!reduce) {
+      cam.classList.remove('squish');
+      void cam.offsetWidth;               // restart the animation on rapid taps
+      cam.classList.add('squish');
+    }
+    burst(36, 0.8);
+  });
+  cam.addEventListener('animationend', function () { cam.classList.remove('squish'); });
+})();
+</script>
+</body>
+</html>

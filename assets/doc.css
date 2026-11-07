@@ -1,6 +1,6 @@
 /* CameraDuel — long-form document pages (privacy, terms, delete).
-   Same system as the home page: black field, cream ink, the teal→mint→gold
-   rule, system sans, square corners, hairline grid. Tokens below are the
+   Same system as the home page: black field, cream ink,
+   system sans, square corners, hairline grid. Tokens below are the
    ones in index.html's inline :root — keep the two in sync. */
 :root{
   --ink:#000000;
@@ -25,7 +25,6 @@ body{
 /* One column: nav, prose and footer all share a left edge, unlike the
    home page where the wrap is wide enough to hold a two-up hero. */
 .wrap{max-width:768px;margin:0 auto;padding:0 28px;width:100%}
-.rule{height:2px;background:linear-gradient(90deg,var(--teal),var(--mint) 55%,var(--gold))}
 a{color:inherit}
 h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.025em;line-height:1.04}
 p{margin:0}
