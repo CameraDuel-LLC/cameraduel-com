@@ -45,7 +45,9 @@ main.duck{
   -webkit-tap-highlight-color:transparent;transform-origin:50% 90%;
 }
 .cam img{
-  display:block;width:clamp(130px,24vh,200px);height:auto;
+  --cam:clamp(130px,24vh,200px);
+  /* the artwork has built-in padding: draw it larger and pull the margin back so layout is unchanged */
+  display:block;width:calc(var(--cam) * 1.35);margin:calc(var(--cam) * -.175);height:auto;
   animation:bob 3.2s ease-in-out .7s infinite;
 }
 .cam.squish{animation:squish .45s ease-out}
@@ -102,7 +104,7 @@ h1{font-size:clamp(38px,11vw,52px)}
   <div class="stage">
     <div class="bubble" id="bubble" role="status" aria-live="polite"></div>
     <div class="pop">
-      <button class="cam" id="cam" type="button" aria-label="Cam the duck. Tap for a quack."><img src="/assets/cam.svg" alt="" width="176" height="176"></button>
+      <button class="cam" id="cam" type="button" aria-label="Cam the duck. Tap for a quack."><img src="/assets/CamDuck-Camera.svg" alt="" width="176" height="176"></button>
     </div>
   </div>
 
@@ -136,7 +138,7 @@ var COPY = {
   headline: "Hi, I'm Cam,",
   intro: "the mascot of CameraDuel, a daily photo challenge app that makes staying in touch with your friends effortless.",
   warmLine: "However I got to you, someone thinks you're a pretty cool duck :)",
-  cta: "For your first challenge, download CameraDuel, then pass me on to a friend you care about.",
+  cta: "For your first challenge, download CameraDuel, then give me to a friend you care about.",
   iosButton: "Download on the App Store",
   androidButton: "Get it on Google Play",
   beforeButtons: "Today's prompt is waiting!",
