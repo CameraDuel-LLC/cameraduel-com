@@ -5,7 +5,8 @@
         "namespace": "android_app",
         "package_name": "com.cameraduel.app",
         "sha256_cert_fingerprints": [
-          "BF:1B:6C:55:3D:EF:DF:36:FB:AA:8B:6C:12:BE:20:A2:A3:64:51:09:72:4C:5C:D1:3C:75:0B:F2:60:FC:AD:FF"
+          "BF:1B:6C:55:3D:EF:DF:36:FB:AA:8B:6C:12:BE:20:A2:A3:64:51:09:72:4C:5C:D1:3C:75:0B:F2:60:FC:AD:FF",
+          "16:D6:F5:2E:39:EC:DA:6F:64:42:09:95:B1:03:01:23:3A:44:1F:0E:07:8D:95:04:47:C6:DC:E9:6A:78:18:90"
         ]
       }
     }
