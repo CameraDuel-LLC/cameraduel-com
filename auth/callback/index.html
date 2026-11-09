@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<title>Opening CameraDuel</title>
+<style>
+  :root { color-scheme: dark light; --bg:#000; --fg:#fff; --mute:#9a9a9f; --accent:#5FE3D6; --ink:#04302B; }
+  @media (prefers-color-scheme: light) { :root { --bg:#F7F6F3; --fg:#111112; --mute:#6b6b70; } }
+  html,body { margin:0; background:var(--bg); color:var(--fg);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+  main { min-height:100vh; box-sizing:border-box; padding:24px 16px; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; text-align:center; gap:14px; }
+  h1 { margin:0; font-size:26px; font-weight:800; letter-spacing:-.01em; }
+  p { margin:0; max-width:320px; line-height:1.45; color:var(--mute); font-size:16px; }
+  a.btn { display:inline-block; margin-top:8px; padding:14px 28px; border-radius:999px; background:var(--accent);
+    color:var(--ink); font-weight:700; font-size:17px; text-decoration:none; }
+  a.sub { color:var(--mute); font-size:14px; margin-top:6px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>You're in. Let's go.</h1>
+  <p id="msg">Opening CameraDuel…</p>
+  <a id="open" class="btn" href="cameraduel://auth/callback">Open CameraDuel</a>
+  <a class="sub" href="/">Don't have the app yet?</a>
+</main>
+<script>
+  // Fallback for when a mail app's in-app browser swallows the universal link.
+  // Hands the PKCE code to the app's custom scheme; the code is only usable by
+  // the device that started sign-in (it needs that device's code_verifier).
+  (function () {
+    var q = location.search || '';
+    var target = 'cameraduel://auth/callback' + q;
+    document.getElementById('open').setAttribute('href', target);
+    if (q.indexOf('code=') === -1) {
+      document.getElementById('msg').textContent =
+        "This link looks incomplete. Head back to CameraDuel and ask for a fresh one.";
+      return;
+    }
+    document.getElementById('msg').textContent =
+      "Tap the button if CameraDuel doesn't open on its own.";
+    setTimeout(function () { location.href = target; }, 150);
+  })();
+</script>
+</body>
+</html>
